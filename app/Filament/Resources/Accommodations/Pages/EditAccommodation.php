@@ -1,0 +1,23 @@
+<?php
+
+namespace App\Filament\Resources\Accommodations\Pages;
+
+use App\Filament\Resources\Accommodations\AccommodationResource;
+use Filament\Actions\DeleteAction;
+use Filament\Actions\ForceDeleteAction;
+use Filament\Actions\RestoreAction;
+use Filament\Resources\Pages\EditRecord;
+
+class EditAccommodation extends EditRecord
+{
+    protected static string $resource = AccommodationResource::class;
+
+    protected function getHeaderActions(): array
+    {
+        return [
+            DeleteAction::make(),
+            ForceDeleteAction::make(),
+            RestoreAction::make(),
+        ];
+    }
+}

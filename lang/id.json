@@ -1,0 +1,15 @@
+{
+    "Admin": "Admin",
+    "Clean foundation for the development team.": "Fondasi bersih untuk tim development.",
+    "Database schema without seed data": "Skema database tanpa seed data",
+    "Filament admin scaffolding": "Scaffolding admin Filament",
+    "Home": "Beranda",
+    "Included foundation": "Fondasi yang tersedia",
+    "Laravel CMS boilerplate": "Boilerplate CMS Laravel",
+    "Laravel MVC structure": "Struktur MVC Laravel",
+    "Laravel docs": "Dokumentasi Laravel",
+    "Open admin": "Buka admin",
+    "Pest, Pint, PHPStan, Prettier, Husky": "Pest, Pint, PHPStan, Prettier, Husky",
+    "Project boilerplate": "Boilerplate project",
+    "This branch contains tooling, schema, admin scaffolding, and frontend style primitives. Website content is intentionally not implemented yet.": "Branch ini berisi tooling, schema, scaffolding admin, dan primitive style frontend. Konten website sengaja belum diimplementasikan."
+}
