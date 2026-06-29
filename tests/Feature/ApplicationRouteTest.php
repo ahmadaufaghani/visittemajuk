@@ -4,11 +4,11 @@ beforeEach(function (): void {
     $this->withoutVite();
 });
 
-it('renders the neutral boilerplate home page', function (): void {
+it('renders the public application entry page', function (): void {
     $this->get('/')
         ->assertOk()
-        ->assertSee('Boilerplate', false)
-        ->assertSee('schema', false);
+        ->assertSee('Laravel', false)
+        ->assertSee('Filament', false);
 });
 
 it('renders supported locale prefixes without database seed data', function (): void {

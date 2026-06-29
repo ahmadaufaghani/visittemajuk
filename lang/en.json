@@ -1,15 +1,16 @@
 {
     "Admin": "Admin",
-    "Clean foundation for the development team.": "Clean foundation for the development team.",
-    "Database schema without seed data": "Database schema without seed data",
-    "Filament admin scaffolding": "Filament admin scaffolding",
+    "Application": "Application",
+    "Application workspace for the development team.": "Application workspace for the development team.",
+    "Available project areas": "Available project areas",
+    "Database schema": "Database schema",
+    "Filament admin resources": "Filament admin resources",
     "Home": "Home",
-    "Included foundation": "Included foundation",
-    "Laravel CMS boilerplate": "Laravel CMS boilerplate",
+    "Laravel CMS application": "Laravel CMS application",
     "Laravel MVC structure": "Laravel MVC structure",
     "Laravel docs": "Laravel docs",
     "Open admin": "Open admin",
-    "Pest, Pint, PHPStan, Prettier, Husky": "Pest, Pint, PHPStan, Prettier, Husky",
-    "Project boilerplate": "Project boilerplate",
-    "This branch contains tooling, schema, admin scaffolding, and frontend style primitives. Website content is intentionally not implemented yet.": "This branch contains tooling, schema, admin scaffolding, and frontend style primitives. Website content is intentionally not implemented yet."
+    "Quality tools and Git hooks": "Quality tools and Git hooks",
+    "The repository provides Laravel structure, CMS schema, admin resources, and reusable frontend styling primitives for team development.": "The repository provides Laravel structure, CMS schema, admin resources, and reusable frontend styling primitives for team development.",
+    "Visit Temajuk Application": "Visit Temajuk Application"
 }

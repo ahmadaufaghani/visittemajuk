@@ -1,94 +1,138 @@
-# Visit Temajuk Laravel Boilerplate
+# Visit Temajuk Laravel Application
 
-This branch is the Laravel boilerplate for Visit Temajuk. It is intentionally limited to project setup, tooling, schema, admin scaffolding, and frontend styling primitives. It does not contain final website content, static website files, or seeded application data.
+Visit Temajuk is a Laravel application for a team-managed tourism CMS and public website. The repository contains the application structure, tooling, database schema, admin resources, frontend styling primitives, and collaboration workflow used by the development team.
 
-## Branches
+Authored website content, local environment values, generated dependency folders, and deployment secrets are managed through their dedicated runtime, CMS, and infrastructure workflows rather than versioned in source control.
 
-- `dev`: Laravel boilerplate used by the development team.
-- `design`: static website reference only.
+## Branch Strategy
 
-The `dev` branch must not contain static reference files. The `design` branch must not contain the Laravel project, Composer dependencies, Node dependencies, or backend configuration.
+- `dev`: primary Laravel application development branch.
+- `design`: static website design reference.
+- `dev_*`: personal development branches that may open pull requests into `dev`.
+
+The `dev` branch contains the Laravel application. The `design` branch contains the static website design reference and must not include application dependencies, backend configuration, or generated build artifacts.
 
 ## Requirements
 
 - PHP 8.3+
 - Composer 2+
-- Node.js 22+ and npm
-- MySQL 8+ or compatible
+- Node.js 22.12+ and npm; Node.js 24 is used by GitHub Actions
+- MySQL 8+ or compatible database for local development
+- Git
 
 ## Stack
 
 - Laravel 13
-- Blade, Tailwind CSS 4, Alpine.js
+- Blade
+- Tailwind CSS 4
+- Alpine.js
 - Livewire 4
 - Filament 5
+- MySQL
 - Pest
 - Laravel Pint
-- Larastan/PHPStan
+- Larastan / PHPStan
 - Prettier
 - Husky, lint-staged, Commitlint
 
 ## Setup
 
+Clone the repository and install dependencies:
+
 ```bash
+git clone <repository-url>
+cd visittemajuk
 composer install
 npm install
+```
+
+Create the local environment file:
+
+```bash
 cp .env.example .env
 php artisan key:generate
+```
+
+Configure the database values in `.env`:
+
+```env
+DB_CONNECTION=mysql
+DB_HOST=127.0.0.1
+DB_PORT=3306
+DB_DATABASE=visittemajuk
+DB_USERNAME=root
+DB_PASSWORD=
+```
+
+Apply the database schema and prepare local assets:
+
+```bash
 php artisan migrate
 php artisan storage:link
 npm run build
 ```
 
-The database is schema-only at this stage. Do not run seeders to add project content. `DatabaseSeeder` is intentionally empty.
+Application content is managed through database and admin workflows. `DatabaseSeeder` is limited to approved system data and is not a source for authored website content or design-reference imports.
 
-## Environment
+## Environment Files
 
-Copy `.env.example` to `.env`, then configure:
+- `.env.example`: local development environment template.
+- `.env.production.example`: production environment template for deployment planning.
+- `.env.testing`: test environment using SQLite in-memory database.
 
-- `APP_URL`
-- `APP_LOCALE`
-- `APP_SUPPORTED_LOCALES`
-- MySQL connection variables
-- mail settings if needed
+Never commit real `.env` files, credentials, API keys, database dumps, or production secrets.
 
-Use `.env.production.example` as a production template. Never commit real credentials or generated `.env` files.
+Localization defaults are configured through:
+
+```env
+APP_LOCALE=id
+APP_SUPPORTED_LOCALES=id,en
+APP_FALLBACK_LOCALE=id
+```
 
 ## Development Commands
 
-```bash
-composer dev
-composer dev:server
-npm run dev
-npm run build
-```
+| Command                     | Purpose                                                                                                                                       |
+| --------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------- |
+| `composer setup`            | Install dependencies, create `.env` when missing, generate app key, run migrations, link storage, install npm dependencies, and build assets. |
+| `composer dev`              | Run Laravel server, queue listener, log tailing, and Vite together.                                                                           |
+| `composer dev:server`       | Run only the Laravel development server.                                                                                                      |
+| `npm run dev`               | Run Vite development server.                                                                                                                  |
+| `npm run build`             | Build frontend assets.                                                                                                                        |
+| `php artisan migrate`       | Apply database migrations.                                                                                                                    |
+| `php artisan migrate:fresh` | Rebuild the local database schema from scratch.                                                                                               |
+| `php artisan storage:link`  | Link public storage for uploaded media.                                                                                                       |
 
-`composer dev` runs Laravel, queue listener, log tailing, and Vite together. Use `composer dev:server` and `npm run dev` separately when debugging one process at a time.
+Use `composer dev` for normal local development. Use separate commands when debugging one process at a time.
 
 ## Quality Commands
 
-```bash
-composer test
-composer test:coverage
-composer format
-composer format:check
-composer analyse
-composer quality:backend
-composer quality:frontend
-composer quality
-npm run format
-npm run format:check
-npm run lint-staged
-```
+| Command                     | Purpose                                                                  |
+| --------------------------- | ------------------------------------------------------------------------ |
+| `composer test`             | Clear config cache and run Pest.                                         |
+| `composer test:coverage`    | Run Pest with coverage reporting when coverage support is available.     |
+| `composer format`           | Format PHP with Laravel Pint.                                            |
+| `composer format:check`     | Check PHP formatting without writing changes.                            |
+| `composer analyse`          | Run Larastan / PHPStan.                                                  |
+| `composer quality:backend`  | Run Pint check, PHPStan, and Pest.                                       |
+| `composer quality:frontend` | Run Prettier check and Vite build.                                       |
+| `composer quality`          | Run backend and frontend quality gates.                                  |
+| `npm run format`            | Format frontend, Blade, JSON, Markdown, and related files with Prettier. |
+| `npm run format:check`      | Check Prettier formatting without writing changes.                       |
+| `npm run lint-staged`       | Run lint-staged on staged files.                                         |
 
-`composer quality` runs the backend checks, frontend formatting check, and Vite build.
+Run this before opening a pull request:
+
+```bash
+composer quality
+```
 
 ## Git Hooks
 
-Husky hooks are installed through `npm install` / `npm run prepare`.
+Husky hooks are installed by `npm install` through the `prepare` script.
 
-- `pre-commit`: runs `lint-staged`.
-- `commit-msg`: validates commit messages with Commitlint.
+- `pre-commit`: runs `npx lint-staged`.
+- `commit-msg`: runs `npx --no-install commitlint --edit "$1"`.
 - `pre-push`: runs `composer quality`.
 
 Commit messages must use:
@@ -100,46 +144,60 @@ type(context): message
 Example:
 
 ```text
-feat(setup): initialize Laravel boilerplate
+feat(cms): add place media relationship
 ```
+
+## GitHub Workflow
+
+GitHub automation is defined under `.github`.
+
+- `ci.yml`: runs Pest, Laravel Pint check, Larastan/PHPStan, Prettier check, and Vite build.
+- `commitlint.yml`: validates pull request commit messages.
+- `dependency-review.yml`: reviews dependency changes in pull requests when the repository supports GitHub Dependency Review.
+
+The committed workflow set covers CI, commit message validation, and dependency change review. Dependency version updates are handled through reviewed pull requests. Production deployment automation is managed separately from these local quality workflows, and the repository uses `dev` as the primary branch.
+
+Remote repository settings such as branch protection, security toggles, labels, and GitHub Projects must be configured manually. See [GitHub Setup Guide](docs/github-setup.md).
 
 ## Project Structure
 
 - `app/Models`: Eloquent models and relationships.
 - `app/Http/Controllers`: Laravel controllers.
 - `app/Http/Middleware`: HTTP middleware such as locale handling.
-- `app/Filament/Resources`: CMS CRUD scaffolding.
+- `app/Filament/Resources`: Filament CMS CRUD resources.
 - `database/migrations`: database schema.
-- `database/seeders`: intentionally empty seed entrypoint.
-- `resources/views`: Blade boilerplate views and components.
+- `database/seeders`: seed entrypoint for approved system data.
+- `resources/views`: Blade views and components.
 - `resources/css/app.css`: Tailwind tokens and reusable UI primitives.
 - `resources/js/app.js`: Alpine initialization and small generic interactions.
+- `.github/workflows`: local GitHub Actions workflow definitions.
+- `docs`: project documentation for GitHub setup, database/localization, frontend styling, and troubleshooting.
 
-Keep the project close to standard Laravel MVC. Do not add `Services`, `Actions`, `Repositories`, or custom architecture folders until there is a concrete need.
+Keep the project close to standard Laravel MVC. Introduce `Services`, `Actions`, `Repositories`, or other custom architecture folders only when repeated implementation complexity proves they are needed.
 
 ## Database and Localization
 
-The migration set prepares the CMS schema for content, media, navigation, categories, and multilingual fields. Translated content is stored in separate translation tables such as `place_translations`, not duplicated columns like `title_id` or `title_en`.
+The CMS schema supports content, media, navigation, categories, and multilingual fields for application features. Translated content is stored in separate translation tables such as `place_translations`, not duplicated columns like `title_id`, `title_en`, `description_id`, or `description_en`.
 
-No database data is inserted by default. Locale rows can be created later through Filament or a future explicit system-data seed decision.
+Content records and locale data are managed through application and admin workflows.
 
-## Frontend Boilerplate
+See [Database and Localization](docs/database-localization.md).
 
-Tailwind setup includes:
+## Frontend Styling
 
-- Tailwind CSS 4 using the CSS-first `@theme` approach,
-- color, typography, radius, shadow, motion, spacing, and container tokens aligned with the `design` branch static reference,
-- `.app-container`, `.app-container-wide`, `.section`, `.section-compact`, and `.section-header`,
-- `.btn`, `.btn-primary`, `.btn-accent`, `.btn-secondary`, and `.btn-ghost`,
-- `.card`, `.content-card`, `.content-card-body`, and `.card-action`,
-- `.badge`, status badge variants, navigation links, form controls, carousel controls, pagination controls, and accordion primitives,
-- default focus-visible, disabled, hover, active, responsive, and reduced-motion states.
+Tailwind setup uses CSS-first tokens and reusable component classes in `resources/css/app.css`. The styling system follows the direction of the `design` branch while keeping implementation in Laravel Blade, Alpine.js, and Livewire-ready assets.
 
-These are starter primitives, not a final design system and not the static website implementation.
+See [Frontend Style Guide](docs/frontend-style.md).
 
-## Admin
+## Public Routes and Admin
 
-Filament is available at:
+Public application routes:
+
+- `/`
+- `/id`
+- `/en`
+
+Filament admin is available at:
 
 ```text
 /admin
@@ -147,6 +205,10 @@ Filament is available at:
 
 For local development, any authenticated user can access the admin panel. In non-local environments, users must have `is_admin=true`.
 
+## Troubleshooting
+
+See [Troubleshooting](docs/troubleshooting.md) for common setup, database, Vite, formatting, and test issues.
+
 ## Contributing
 
-See `CONTRIBUTING.md` for branch naming, commit, coding, testing, formatting, and pull request conventions.
+See [Contributing Guide](CONTRIBUTING.md) for branch naming, commit convention, coding standards, testing, formatting, review flow, and pull request expectations.

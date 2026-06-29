@@ -5,8 +5,8 @@
     "scripts": {
         "build": "vite build",
         "dev": "vite",
-        "format": "prettier --write \"resources/**/*.{blade.php,css,js,json}\" \"lang/**/*.json\" \"*.{json,md}\"",
-        "format:check": "prettier --check \"resources/**/*.{blade.php,css,js,json}\" \"lang/**/*.json\" \"*.{json,md}\"",
+        "format": "prettier --write \"resources/**/*.{blade.php,css,js,json}\" \"lang/**/*.json\" \".github/**/*.{yml,yaml,md}\" \"docs/**/*.md\" \"*.{json,md}\"",
+        "format:check": "prettier --check \"resources/**/*.{blade.php,css,js,json}\" \"lang/**/*.json\" \".github/**/*.{yml,yaml,md}\" \"docs/**/*.md\" \"*.{json,md}\"",
         "lint-staged": "lint-staged",
         "prepare": "husky"
     },
@@ -31,6 +31,8 @@
     "lint-staged": {
         "*.php": "./vendor/bin/pint",
         "resources/**/*.{blade.php,css,js,json}": "prettier --write",
+        ".github/**/*.{yml,yaml,md}": "prettier --write",
+        "docs/**/*.md": "prettier --write",
         "lang/**/*.json": "prettier --write",
         "*.{json,md}": "prettier --write"
     }
