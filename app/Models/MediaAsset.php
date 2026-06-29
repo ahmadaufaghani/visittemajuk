@@ -43,4 +43,19 @@ class MediaAsset extends Model
     {
         return $this->morphedByMany(Post::class, 'mediaable');
     }
+
+    public function pages(): MorphToMany
+    {
+        return $this->morphedByMany(Page::class, 'mediaable');
+    }
+
+    public function pageSections(): MorphToMany
+    {
+        return $this->morphedByMany(PageSection::class, 'mediaable');
+    }
+
+    public function travelGuides(): MorphToMany
+    {
+        return $this->morphedByMany(TravelGuide::class, 'mediaable');
+    }
 }

@@ -6,6 +6,7 @@ use App\Models\Concerns\HasTranslations;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\MorphToMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Page extends Model
@@ -39,5 +40,13 @@ class Page extends Model
     public function sections(): HasMany
     {
         return $this->hasMany(PageSection::class)->orderBy('sort_order');
+    }
+
+    public function mediaAssets(): MorphToMany
+    {
+        return $this->morphToMany(MediaAsset::class, 'mediaable')
+            ->withPivot(['collection', 'is_featured', 'sort_order'])
+            ->withTimestamps()
+            ->orderByPivot('sort_order');
     }
 }
