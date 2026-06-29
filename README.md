@@ -20,6 +20,8 @@ The `dev` branch contains the Laravel application. The `design` branch contains 
 - MySQL 8+ or compatible database for local development
 - Git
 
+Composer resolves the dependency lock against PHP 8.3 through `config.platform.php` so the lock file stays compatible with the GitHub Actions runtime and the minimum supported PHP version.
+
 ## Stack
 
 - Laravel 13

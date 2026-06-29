@@ -16,6 +16,25 @@ Fix:
 composer install
 ```
 
+## Composer Lock Requires A Newer PHP Version
+
+Symptom:
+
+```text
+Your lock file does not contain a compatible set of packages.
+symfony/* requires php >=8.4.1
+```
+
+Cause: the lock file was generated on a PHP version newer than the project runtime target.
+
+Fix:
+
+```bash
+composer update "symfony/*" nunomaduro/collision --with-all-dependencies
+```
+
+The project pins Composer dependency resolution to PHP 8.3 through `config.platform.php`. Keep this setting aligned with the minimum PHP version documented in `README.md` and used by GitHub Actions.
+
 ## Node Dependencies Missing
 
 Symptom:
