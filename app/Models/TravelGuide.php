@@ -6,6 +6,7 @@ use App\Models\Concerns\HasTranslations;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\MorphToMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class TravelGuide extends Model
@@ -35,5 +36,13 @@ class TravelGuide extends Model
     public function routeGroups(): HasMany
     {
         return $this->hasMany(TravelRouteGroup::class)->orderBy('sort_order');
+    }
+
+    public function mediaAssets(): MorphToMany
+    {
+        return $this->morphToMany(MediaAsset::class, 'mediaable')
+            ->withPivot(['collection', 'is_featured', 'sort_order'])
+            ->withTimestamps()
+            ->orderByPivot('sort_order');
     }
 }
