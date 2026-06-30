@@ -11,6 +11,6 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        // Intentionally empty. This boilerplate ships schema only, without data.
+        // No records are created here. Add only team-approved system data.
     }
 }
