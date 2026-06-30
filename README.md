@@ -171,7 +171,7 @@ Remote repository settings such as branch protection, security toggles, labels, 
 - `database/seeders`: seed entrypoint for approved system data.
 - `resources/views`: Blade views and components.
 - `resources/css/app.css`: Tailwind tokens and reusable UI primitives.
-- `resources/js/app.js`: Alpine initialization and small generic interactions.
+- `resources/js/app.js`: Livewire ESM startup and reusable Alpine component registrations.
 - `.github/workflows`: local GitHub Actions workflow definitions.
 - `docs`: project documentation for GitHub setup, database/localization, frontend styling, and troubleshooting.
 
@@ -187,7 +187,7 @@ See [Database and Localization](docs/database-localization.md).
 
 ## Frontend Styling
 
-Tailwind setup uses CSS-first tokens and reusable component classes in `resources/css/app.css`. The styling system follows the direction of the `design` branch while keeping implementation in Laravel Blade, Alpine.js, and Livewire-ready assets.
+Tailwind setup uses CSS-first tokens and reusable component classes in `resources/css/app.css`. The styling system follows the direction of the `design` branch while keeping implementation in Laravel Blade, Alpine components, and Livewire-ready assets.
 
 See [Frontend Style Guide](docs/frontend-style.md).
 

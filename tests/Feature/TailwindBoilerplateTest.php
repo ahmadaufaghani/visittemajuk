@@ -3,20 +3,24 @@
 it('keeps Tailwind foundation aligned with the static reference tokens and patterns', function (): void {
     $css = file_get_contents(base_path('resources/css/app.css'));
 
-    expect($css)->toContain('--color-brand: #023020')
-        ->and($css)->toContain('--color-brand-deep: #011a11')
-        ->and($css)->toContain('--color-accent-500: #fd8b00')
-        ->and($css)->toContain('--color-surface: #fcf9f9')
+    expect($css)->toContain('--brand: #023020')
+        ->and($css)->toContain('--brand-deep: #011a11')
+        ->and($css)->toContain('--accent-orange: #fd8b00')
+        ->and($css)->toContain('--surface: #fcf9f9')
+        ->and($css)->toContain('--color-brand: var(--brand)')
+        ->and($css)->toContain('--color-accent-orange: var(--accent-orange)')
         ->and($css)->toContain('--font-display:')
         ->and($css)->toContain('Plus Jakarta Sans')
-        ->and($css)->toContain('.app-container')
+        ->and($css)->toContain('.container')
+        ->and($css)->toContain('.header-inner')
+        ->and($css)->toContain('.brand')
         ->and($css)->toContain('.section-header')
-        ->and($css)->toContain('.btn-accent')
+        ->and($css)->toContain('.button-orange')
         ->and($css)->toContain('.content-card')
-        ->and($css)->toContain('.badge')
-        ->and($css)->toContain('.nav-link')
+        ->and($css)->toContain('.category-badge')
+        ->and($css)->toContain('.desktop-nav a')
         ->and($css)->toContain('.carousel-control')
-        ->and($css)->toContain('.pagination-button')
+        ->and($css)->toContain('.pagination button')
         ->and($css)->toContain('.accordion-trigger')
         ->and($css)->toContain('@media (prefers-reduced-motion: reduce)');
 });

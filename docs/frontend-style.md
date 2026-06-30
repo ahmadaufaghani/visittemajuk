@@ -1,10 +1,10 @@
 # Frontend Style Guide
 
-The public frontend uses Blade, Tailwind CSS, Alpine.js, and Livewire-ready assets. The `design` branch provides the static website design reference, while `dev` contains the Laravel implementation and reusable styling primitives.
+The public frontend uses Blade, Tailwind CSS, Alpine.js, and Livewire. The `design` branch provides the static website design reference, while `dev` contains the Laravel implementation and reusable styling primitives.
 
 ## Tailwind Setup
 
-Tailwind CSS 4 is configured through `resources/css/app.css` using CSS-first `@theme` tokens.
+Tailwind CSS 4 is configured through `resources/css/app.css` using CSS-first `@theme` tokens and `@layer` component classes.
 
 Source scanning includes:
 
@@ -16,10 +16,10 @@ Source scanning includes:
 
 ## Design Tokens
 
-Core token groups include:
+Core tokens intentionally mirror the static reference names where practical:
 
 - fonts: `--font-sans`, `--font-display`,
-- colors: brand, accent, surface, card, ink, muted, border, and primary colors,
+- colors: `--brand`, `--brand-deep`, `--accent-orange`, `--surface`, `--card`, `--ink`, and Tailwind `--color-*` aliases,
 - radius: card and control radius,
 - shadows: card, hover, soft, and accent shadows,
 - motion: `--ease-standard`,
@@ -32,16 +32,16 @@ Use these tokens before creating one-off color, radius, shadow, or spacing value
 
 Use existing component classes for repeated patterns:
 
-- containers: `.app-container`, `.app-container-wide`,
+- containers: `.container`,
 - sections: `.section`, `.section-compact`, `.section-header`,
-- typography: `.page-title`, `.section-title`, `.section-description`,
-- buttons: `.btn`, `.btn-primary`, `.btn-accent`, `.btn-secondary`, `.btn-ghost`,
-- cards: `.card`, `.content-card`, `.content-card-body`, `.card-action`,
-- badges: `.badge`, `.badge-place`, `.badge-stay`, `.badge-story`,
+- typography: `.page-title`, `.section-intro`, `.section-description`, `.eyebrow-row`,
+- buttons: `.button`, `.button-dark`, `.button-orange`, `.button-outline`, `.button-ghost-light`,
+- cards: `.card`, `.content-card`, `.card-body`, `.card-action`,
+- badges: `.category-badge`, `.category-place`, `.category-stay`, `.category-story`,
 - forms: `.form-label`, `.form-input`, `.form-help`,
-- navigation: `.site-header`, `.header-bar`, `.brand-mark`, `.site-nav`, `.nav-link`,
+- navigation: `.site-header`, `.header-inner`, `.brand`, `.desktop-nav`, `.mobile-nav`,
 - carousel: `.carousel`, `.carousel-track`, `.carousel-slide`, `.carousel-control`, `.carousel-status`,
-- pagination: `.pagination`, `.pagination-button`, `.pagination-status`,
+- pagination: `.pagination`, `.pagination-status`,
 - accordion: `.accordion-list`, `.accordion-item`, `.accordion-trigger`, `.accordion-panel`.
 
 ## Utility Class Convention
@@ -61,11 +61,11 @@ Avoid creating page-specific styling that duplicates an existing primitive. Pref
 
 ## Alpine.js and Livewire
 
-Use Alpine.js for small local interactions such as toggles, tabs, dropdowns, and lightweight UI state.
+Use Alpine.js for small local interactions such as toggles, tabs, dropdowns, carousels, pagination controls, accordions, and lightweight UI state.
 
 Use Livewire for server-driven interactivity that needs validation, persistence, filtering, or database-backed updates.
 
-Keep large or server-driven workflows in Livewire or regular Laravel controllers instead of global Alpine scripts.
+The project uses Livewire's ESM bundle in `resources/js/app.js`, registers custom Alpine components with `Alpine.data()`, and starts Livewire with `Livewire.start()`. Keep large or server-driven workflows in Livewire or regular Laravel controllers instead of global standalone scripts.
 
 ## Design Drift Prevention
 

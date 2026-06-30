@@ -1,9 +1,12 @@
 <x-layouts.app :title="__('Visit Temajuk Application')">
     <section class="section">
-        <div class="app-container">
+        <div class="container">
             <div class="grid gap-8 lg:grid-cols-[1fr_360px] lg:items-start">
-                <div class="reveal-motion">
-                    <p class="eyebrow">{{ __('Laravel CMS application') }}</p>
+                <div class="reveal" x-data="revealMotion()" x-bind:class="{ 'is-visible': visible }">
+                    <div class="eyebrow-row">
+                        <span aria-hidden="true"></span>
+                        <p>{{ __('Laravel CMS application') }}</p>
+                    </div>
                     <h1 class="page-title mt-5 max-w-3xl text-balance">
                         {{ __('Application workspace for the development team.') }}
                     </h1>
@@ -15,15 +18,20 @@
                         }}
                     </p>
                     <div class="mt-8 flex flex-wrap gap-3">
-                        <a class="btn btn-accent" href="/admin">{{ __('Open admin') }}</a>
-                        <a class="btn btn-secondary" href="https://laravel.com/docs" target="_blank" rel="noreferrer">
+                        <x-public.button href="/admin" variant="orange">{{ __('Open admin') }}</x-public.button>
+                        <x-public.button
+                            href="https://laravel.com/docs"
+                            variant="outline"
+                            target="_blank"
+                            rel="noreferrer"
+                        >
                             {{ __('Laravel docs') }}
-                        </a>
+                        </x-public.button>
                     </div>
                 </div>
 
-                <div class="card reveal-motion">
-                    <span class="badge badge-place">{{ __('Application') }}</span>
+                <div class="card reveal" x-data="revealMotion()" x-bind:class="{ 'is-visible': visible }">
+                    <x-public.badge>{{ __('Application') }}</x-public.badge>
                     <h2 class="font-display text-ink mt-4 text-xl font-extrabold">
                         {{ __('Available project areas') }}
                     </h2>
